@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PacMan</title>
+        <link rel="stylesheet" href="/styles/pacman.css">
+        
+    </head>
+    <body>
+        <h1 id="Pname">'<%= name%>'</h1>
+        <h3 id="pScore">Score:'<%= score%>' </h3>
+        <canvas id="board"></canvas>
+ 
+        <button><a href="/user/pacman/<%=userId%>" style="text-decoration: none;">restart</a></button>
+        <a href="/user/home/<%=userId%>" class="btn btn-primary">home</a>
+        <!-- <div class="container-fluid text-center">
+            <div class=" d-flex justify-content-center align-items-center">
+                <button><a href="/user/pacman/ style="text-decoration: none;">restart</a></button>
+                <button><a href="/user/login" style="text-decoration: none;">exit</a></button>
+            </div>
+        </div>
+        <script>
+            const userId = user
+        </script> -->
+    </body>
+    <script>
+        const playername = '<%= name%>' 
+        let playerscore = '<%= score%>' 
+        const userId = '<%= userId%>' 
+    </script>
+    <script src="/script/pacman.js"></script>
+</html>

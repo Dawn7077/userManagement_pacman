@@ -1,0 +1,14 @@
+<div>
+    <form id="addForm" class="mb-3  " action="/admin/edit/<%=user._id%>" method="POST">
+    <table class="table table-bordered">
+      <tr>
+        <td><input name="name" class="form-control form-control-sm" value="<%=user.name%>"   /></td>
+        <td><input name="email" class="form-control form-control-sm" value="<%=user.email%>" type="email" /></td>
+        <td><input name="password" class="form-control form-control-sm" value="text" type="password" /></td>
+        <td><input name="score" class="form-control form-control-sm" type="number" value="<%=user.score%>" /></td>
+        <td><button type="submit" class="btn btn-success btn-sm">Save</button></td>
+      </tr>
+    </table>
+  </form>
+
+</div>

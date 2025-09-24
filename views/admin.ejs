@@ -1,0 +1,260 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h4">User Management - Admin</h1>
+            <div>
+                <a href="/admin/add" class="btn btn-primary">+ Add User</a>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table id="usersTable" class="table table-striped table-hover mb-0 align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 70px;">#ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th style="width: 100px;">Score</th>
+                                <th style="width: 170px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            
+                            <% users.forEach((user,ind)=>{ %>
+                                <tr>
+                                <td><%= ind + 1 %></td>
+                                <td><%= user.name %></td>
+                                <td><%= user.email %></td>
+                                <td><%= user.score %></td>
+                                <td class="table-actions">
+                                    <a href="/admin/edit/<%= user._id  %>" class="btn btn-sm btn-outline-warning"  >Edit</a>
+                                    <a href="/admin/delete/<%= user._id  %>" class="btn btn-sm btn-outline-danger"  >Delete</a>
+                                </td>
+                            </tr>
+                                <% }) %>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <p></p>
+    </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+
+</body>
+</html> -->
+<!-- 
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h4">User Management - Admin</h1>
+            <div>
+                <button id="addBtn" class="btn btb-sm btn-primary">+ Add User</button> 
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table id="usersTable" class="table table-striped table-hover mb-0 align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 70px;">#ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th style="width: 100px;">Score</th>
+                                <th style="width: 170px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>dawn</td>
+                                <td>dawn@123</td>
+                                <td>2300</td>
+                                <td class="table-actions">
+                                    <button class="btn btn-sm btn-outline-primary" onlcick="edit()">Edit</button>
+                                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <p></p>
+    </div>
+// function addrow(){
+//     const tr = document.createElement('tr')
+      
+//     tr.innerHTML=`<td>
+//               <input name="name" class="form-control form-control-sm" value="" readonly />
+//             </td>
+//             <td>
+//               <input name="email" class="form-control form-control-sm" value="" readonly />
+//             </td>
+//             <td>
+//               <input name="score" class="form-control form-control-sm" value="" type="number" readonly />
+//             </td>
+//             <td>
+//               <div class="d-flex gap-2">
+//                 <button type="button" class="btn btn-warning btn-sm" onclick="enableEdit('')">Edit</button>
+//                 <button type="submit" class="btn btn-primary btn-sm d-none" id="saveBtn-">Save</button>
+//                 <a href="/admin/delete/" class="btn btn-danger btn-sm">Delete</a>
+//               </div>
+//             </td>`
+// }
+
+
+</body> -->
+
+
+<body class="bg-light">
+<div class="container py-5">
+
+  <div class="d-flex justify-content-between mb-4">
+    <h2>Admin Panel - Users</h2>
+    <button class="btn btn-primary btn-sm" onclick="showAddRow()">+ Add User</button>
+  </div>
+
+  <form id="addForm" class="mb-3 d-none" action="/admin/add" method="POST">
+    <table class="table table-bordered">
+      <tr>
+        <td><input name="name" class="form-control form-control-sm" placeholder="Name"   /></td>
+        <td><input name="email" class="form-control form-control-sm" placeholder="Email" type="email" /></td>
+        <td><input name="password" class="form-control form-control-sm" placeholder="Password" type="password" /></td>
+        <td><input name="score" class="form-control form-control-sm" type="number" placeholder="0" /></td>
+        <td><button type="submit" class="btn btn-success btn-sm">Save</button></td>
+      </tr>
+    </table>
+  </form>
+
+  <table class="table table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Score</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% users.forEach((user)=>{ %>
+            
+                <tr id="row-<%= user._id %>">
+                    <td>
+                        <input type="text" name="name" class="form-control form-control-sm" value="<%=user.name%>" readonly>
+                        </td>
+                    <td>
+                        <input type="text" name="email" class="form-control form-control-sm" value="<%=user.email%>" readonly>
+                        </td>
+                    <td>
+                        <input type="number" name="score" class="form-control form-control-sm" value="<%=user.score%>" readonly>
+                        </td>
+                    <td> 
+                        <div class="d-flex gap-2">
+                            <!-- <button type="button" class="btn btn-warning btn-sm" onclick="editEnable('<%=user._id%>')">Edit</button>
+                            <button type="submit" class="btn btn-primary btn-sm d-none" id="saveBtn-<%=user._id%>">Save</button> -->
+                           
+                           
+                            <a href="/admin/edit/<%=user._id%>"  class="btn btn-warning btn-sm" >Edit</a>
+                            <a href="/admin/delete/<%=user._id%>" class="btn btn-danger btn-sm" 
+                                onclick="return confirm('Are you sure you want to delete the user?')">Delete</a>
+                            </div></td>
+                </tr>
+             
+       <% }) %>
+    </tbody>
+
+
+ <!-- <tbody>
+  <% users.forEach(user => { %>
+    <tr id="row-<%= user._id %>">
+      <td>
+        <input type="text" name="name" class="form-control form-control-sm" value="<%= user.name %>" readonly />
+      </td>
+      <td>
+        <input type="email" name="email" class="form-control form-control-sm" value="<%= user.email %>" readonly />
+      </td>
+      <td>
+        <input type="number" name="score" class="form-control form-control-sm" value="<%= user.score %>" readonly />
+      </td>
+      <td> 
+        <form id="form-<%= user._id %>" action="/admin/edit/<%= user._id %>" method="POST" class="d-flex gap-2">
+          <button type="button" class="btn btn-warning btn-sm" onclick="editEnable('<%= user._id %>')">Edit</button>
+          <button type="submit" class="btn btn-primary btn-sm d-none" id="saveBtn-<%= user._id %>">Save</button>
+          <a href="/admin/delete/<%= user._id %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+</tbody> -->
+
+ 
+
+  </table>
+  <div><a href="/admin/logout" class="btn btn-outline-secondary " style="margin-left: 1225px;">logout</a></div>
+</div>
+
+<script>
+  function showAddRow() {
+    document.getElementById('addForm').classList.remove('d-none');
+  }
+
+  function editEnable(userId){
+     const row = document.getElementById('row-' + userId);  
+  const inputs = row.querySelectorAll('input');  
+  inputs.forEach(input => input.removeAttribute('readonly'));
+
+  document.getElementById('saveBtn-' + userId).classList.remove('d-none');
+
+
+
+
+    // const form = document.getElementById('form-'+userId)
+    // const inputs = form.querySelectorAll('input')
+    // inputs.forEach(input=>input.removeAttribute('readonly'))
+
+    // document.getElementById('saveBtn-'+userId).classList.remove('d-none')
+  }
+//   function editEnable(userId){
+//     const tr = document.querySelectorAll('tr')
+//     const inputs = tr.querySelectorAll('td[contentEditable]')
+//     inputs.forEach(input=>input.getAttribute('contentEditable')==='true')
+
+//     document.getElementById('saveBtn-'+userId).classList.remove('d-none')
+//   }
+  
+  function editSave(user){
+    fetch(`/admin/edit/${user}`,{
+        method:"PUT",
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+            
+        })
+    })
+  }
+
+
+</script>
+</body>
+
+  
