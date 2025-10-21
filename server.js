@@ -1,12 +1,13 @@
 const express = require('express')
 const app = express()
-const session = require('express-session')
-const nocache =require('nocache')
+const session = require('express-session') 
 const expressLayouts = require('express-ejs-layouts')
+
 require('dotenv').config({path:'.env'})
 
 const port = process.env.PORT||4000
 const morgan  = require('morgan')
+const methodOverride = require('method-override')
 const crypt = require('bcrypt')
 const path = require('path')
 const userRouter = require('./routes/user')
@@ -19,6 +20,7 @@ const { error } = require('console')
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname ,'public')))
 app.use(expressLayouts)
 app.set('layout','layouts/main')
@@ -76,11 +78,7 @@ app.use((err,req,res,next)=>{
     res.status(err.statusCode).json({message:err.message})
 })
 
-
-
-
-
-
+ 
 
 app.listen(port,()=>{
     console.log(`Listening on port:${port}  link: http://localhost:${port}`)

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        /* ========== TOP NAVIGATION BAR ========== */
+        .top-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn {
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-profile {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-profile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+            color: white;
+        }
+
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 101, 101, 0.4);
+            color: white;
+        }
+
+        .nav-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        /* ========== MAIN CONTENT AREA ========== */
+        .main-content {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .welcome-emoji {
+            font-size: 64px;
+            margin-bottom: 20px;
+            animation: wave 2s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(20deg); }
+            75% { transform: rotate(-20deg); }
+        }
+
+        .welcome-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .welcome-subtitle {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 0;
+        }
+
+        .score-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+            margin-bottom: 30px;
+            animation: slideUp 0.7s ease-out;
+        }
+
+        .score-icon {
+            font-size: 56px;
+            margin-bottom: 15px;
+        }
+
+        .score-label {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .score-value {
+            font-size: 56px;
+            font-weight: 700;
+        }
+
+        .play-button-container {
+            text-align: center;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .btn-play {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            border: none;
+            color: white;
+            padding: 20px 60px;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(72, 187, 120, 0.4);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-play:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(72, 187, 120, 0.5);
+            color: white;
+        }
+
+        .btn-play:active {
+            transform: translateY(-2px);
+        }
+
+        /* ========== PROFILE SIDEBAR ========== */
+        .profile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .profile-sidebar.active {
+            left: 0;
+        }
+
+        .profile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .profile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-profile {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-profile:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: 700;
+            color: #667eea;
+            margin: 0 auto 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            border: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .profile-name {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-body {
+            padding: 25px;
+        }
+
+        .profile-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+
+        .info-label {
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            color: #2d3748;
+            font-size: 15px;
+            font-weight: 700;
+            word-break: break-all;
+        }
+
+        .sidebar-score-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        }
+
+        .sidebar-score-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-score-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-score-value {
+            font-size: 42px;
+            font-weight: 700;
+        }
+
+        /* ========== MOBILE RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .profile-sidebar {
+                left: -100%;
+                width: 100%;
+            }
+
+            .welcome-card {
+                padding: 40px 30px;
+            }
+
+            .welcome-title {
+                font-size: 28px;
+            }
+
+            .score-value {
+                font-size: 48px;
+            }
+
+            .btn-play {
+                padding: 18px 40px;
+                font-size: 18px;
+            }
+
+            .nav-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body> 
+    <div class="profile-overlay" id="profileOverlay" onclick="closeProfile()"></div>
+ 
+    <div class="profile-sidebar" id="profileSidebar">         
+        <div class="profile-header">
+            <button class="close-profile" onclick="closeProfile()">×</button>
+            <!-- <div class="profile-avatar"><%=user.name%></div> -->
+            <h3 class="profile-name"><%=user.name%></h3>
+        </div>
+
+        <div class="profile-body">         
+            <div class="profile-section">
+                <div class="sidebar-score-card">
+                    <div class="sidebar-score-icon">🎮</div>
+                    <div class="sidebar-score-label">Your Score</div>
+                    <div class="sidebar-score-value"><%= user.score %></div>
+                </div>
+            </div>
+
+            <!-- Info Section -->
+            <div class="profile-section">
+                <div class="section-title">Account Details</div>
+                
+                <div class="info-item">
+                    <div class="info-label">👤 Name</div>
+                    <div class="info-value"><%= user.name %></div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">📧 Email</div>
+                    <div class="info-value"><%=user.email %></div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">🆔 User ID</div>
+                    <div class="info-value"><%=user._id  %></div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="top-nav">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-4 text-start">
+                    <button class="nav-btn btn-profile" onclick="openProfile()">
+                        👤 Profile
+                    </button>
+                </div>
+                <div class="col-4 text-center">
+                    <h1 class="nav-title">🏠 HOME</h1>
+                </div>
+                <div class="col-4 text-end">
+                    <a href="/user/logout" class="nav-btn btn-logout">
+                        🚪 Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Welcome Card -->
+        <div class="welcome-card">
+            <div class="welcome-emoji">👋</div>
+            <h1 class="welcome-title">Welcome, John Doe!</h1>
+            <p class="welcome-subtitle">Ready to play?</p>
+        </div>
+
+        <!-- Score Card -->
+        <div class="score-card">
+            <div class="score-icon">🏆</div>
+            <div class="score-label">Your Score</div>
+            <div class="score-value">1,250</div>
+        </div>
+
+        <!-- Play Button -->
+        <div class="play-button-container">
+            <a href="/user/pacman/123" class="btn-play">
+                🎮 Play PACMAN
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function openProfile() {
+            document.getElementById('profileSidebar').classList.add('active');
+            document.getElementById('profileOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProfile() {
+            document.getElementById('profileSidebar').classList.remove('active');
+            document.getElementById('profileOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeProfile();
+        });
+    </script>
+</body>
+</html>

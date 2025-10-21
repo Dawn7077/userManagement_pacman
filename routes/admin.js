@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router()
+const router = express.Router() 
 const bcrypt = require('bcrypt')
 const userModel = require('../model/user')
 const {adminHome,addUser,getUser,
@@ -21,9 +21,11 @@ router.get('/get/:id',adminCheckSession,getUser)
 router.get('/edit/:id',adminCheckSession,NoCache,editpage)
 
 
-router.post('/edit/:id',adminCheckSession,NoCache,editUser)
+router.put('/edit/:id',adminCheckSession,NoCache,editUser)
 
-router.get('/delete/:id',adminCheckSession,NoCache,deleteUser)
+// router.get('/delete/:id',adminCheckSession,NoCache,deleteUser)
+
+router.delete('/delete/:id', adminCheckSession,NoCache,deleteUser );
 
 router.get('/logout',NoCache,logout)
 

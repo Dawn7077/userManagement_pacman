@@ -10,6 +10,10 @@ const postSignup = async(req,res)=>{
     try{
         const {username, email,password} = req.body
         const existingUser = await userModel.findOne({name:username})
+        if(!username||!password||!email)return res.render('signup',{error:'All fields are required!!'})
+        if(password.length<6)return res.render('signup',{error:'Password length must be more than 6 '})
+        if(!email.includes('@'))return res.render('signup',{error:'email must contain "@" '})
+
         if(existingUser){
             return res.render('signup',{error:'User name already exist ... use another one'})
              

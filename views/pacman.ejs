@@ -5,15 +5,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>PacMan</title>
         <link rel="stylesheet" href="/styles/pacman.css">
-        
+        <style>
+            body{
+        background: linear-gradient(69deg, rgba(135, 43, 255, 0.966) 0%, rgba(255, 154, 96, 0.966) 10%, rgba(154, 201, 237, 0.7) 29% , rgba(187, 234, 232, 0.966) 32%, rgba(223, 104, 138, 0.966) 60%,  rgba(154, 69, 154, 0.966) 76%, rgba(85, 69, 154, 0.966) 100%);
+        /* background-image: url('/images/contactbg.jpg'); */
+        background-position: cover; 
+        height: 120vh;
+         
+      }
+        </style>
     </head>
-    <body>
+    <body class="container-fluid">
         <h1 id="Pname">'<%= name%>'</h1>
         <h3 id="pScore">Score:'<%= score%>' </h3>
         <canvas id="board"></canvas>
  
-        <button><a href="/user/pacman/<%=userId%>" style="text-decoration: none;">restart</a></button>
-        <a href="/user/home/<%=userId%>" class="btn btn-primary">home</a>
+        <!-- <button>
+        </button> -->
+        <div class="container-fluid m-2 text-center">
+            <a href="/user/pacman/<%=userId%>" class="btn btn-secondary">restart</a>
+            <a href="/user/home/<%=userId%>" class="btn btn-primary">home</a>
+        </div>
         <!-- <div class="container-fluid text-center">
             <div class=" d-flex justify-content-center align-items-center">
                 <button><a href="/user/pacman/ style="text-decoration: none;">restart</a></button>
