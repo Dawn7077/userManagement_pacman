@@ -51,7 +51,7 @@ app.use((req,res,next)=>{
 connectDB()
 app.use(morgan('tiny'))
 
- 
+console.log("cherrypick")
 
 app.get('/',(req,res)=>{
     res.redirect('/user/login')
