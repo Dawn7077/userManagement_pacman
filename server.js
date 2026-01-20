@@ -52,7 +52,7 @@ connectDB()
 app.use(morgan('tiny'))
 
  
-
+console.log('hi')
 app.get('/',(req,res)=>{
     res.redirect('/user/login')
 })
